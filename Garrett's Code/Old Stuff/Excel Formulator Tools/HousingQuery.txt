@@ -1,0 +1,1 @@
+project = "Disaster Resource Library" AND (status = Available) AND issuetype != Assessment AND (text ~ "homeless" OR text ~ "housing" OR text ~ "HUD" OR text ~ "Housing and Urban Development" OR text ~ "Idaho")

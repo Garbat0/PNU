@@ -1,0 +1,1 @@
+[{'Initial Depth': 4, 'Final Depth': 0, 'Total Trunks': 0, 'Total Limbs': 0, 'Total Boughs': 0, 'Total Branches': 0, 'Total Leaves': 0}]

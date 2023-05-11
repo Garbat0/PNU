@@ -1,0 +1,4 @@
+# 26CharacterLongAlphabet, NAME
+1 snvfrghjoklazmpqwtdyibecux, RShift
+2 zyxwvutsrqponmlkjihgfedcba, Reverse
+3 fjdsklafjkdlsa;fjksla;, Test

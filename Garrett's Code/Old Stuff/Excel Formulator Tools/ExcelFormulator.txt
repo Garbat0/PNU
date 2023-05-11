@@ -1,0 +1,422 @@
+## -*- coding: utf-8 -*-
+#"""
+#Spyder Editor
+#
+#This is a temporary script file.
+#
+#
+#
+#"""
+##import re
+##s = input(">")
+##s1 = input("INT INPUT > ")
+##s11 = s1 + " -"
+##s12 = "="+s1
+##s2 = input("INT OUTPUT > ")
+##s21 = s2 + " -"
+##s22 = "="+s2
+##s = s.replace(s11,s21)
+##s = s.replace(s12,s22)
+##print('\n',s)
+#
+
+#
+#
+"""
+Excel Formulae to Format Data:
+=TEXTJOIN(,TRUE,"'narr' : [", IF(ISBLANK(B8)=FALSE,TEXTJOIN(,,"'", B8,"', "),""), IF(ISBLANK(B9)=FALSE,TEXTJOIN(,,"'", B9,"', "),""), IF(ISBLANK(B10)=FALSE,TEXTJOIN(,,"'", B10,"', "),""), IF(ISBLANK(B11)=FALSE,TEXTJOIN(,,"'", B11,"', "),""), IF(ISBLANK(B12)=FALSE,TEXTJOIN(,,"'", B12,"', "),""), IF(ISBLANK(B13)=FALSE,TEXTJOIN(,,"'", B13,"', "),""), IF(ISBLANK(B14)=FALSE,TEXTJOIN(,,"'", B14,"', "),""), IF(ISBLANK(B15)=FALSE,TEXTJOIN(,,"'", B15,"', "),""), IF(ISBLANK(B16)=FALSE,TEXTJOIN(,,"'", B16,"', "),""), IF(ISBLANK(B17)=FALSE,TEXTJOIN(,,"'", B17,"', "),""), IF(ISBLANK(B18)=FALSE,TEXTJOIN(,,"'", B18,"', "),""), IF(ISBLANK(B19)=FALSE,TEXTJOIN(,,"'", B19,"', "),""),"],")
+    
+"""
+
+inp = input("What do you need assistance with?\n\n1) Cell Replacement\n2) Number Replacement\n3) Excel Formulation\n> ")
+  
+
+#inp1 = input("Need Cell Replacement? > ")
+if inp == "1":
+    s1a=[]; s2a=[]
+    form = input("Excel Formulae > ")
+    c = input("Input Cells > ")
+    s1a.append(c)
+    while c != "no":
+       c = input("Input Cells > ")
+       c1 = '$'+c
+       s1a.append(c1)    
+    
+    c2 = input("Output Cells > ")
+    s2a.append(c2)
+    
+    while c2 != "no":
+       c2 = input("Output Cells > ")
+       c3 = '$'+c2
+       s2a.append(c3)   
+    
+    for cells in s1a:
+       n = s1a.index(cells)
+       form = form.replace(cells,s2a[n])
+
+#    formula = ["CONCATENATE","ISBLANK","IFS","'Form Responses 1'!","OR"]
+#    Maybe add some layered protection for the formula variables?
+    print('\n',form)
+    
+#inp = input("Need Number Replacement? > ")
+if inp == "2":
+    form = input("Excel Formulae > ")
+    s1 = input("INT INPUT > ")
+    num = s1
+    s11 = s1 + " -"
+    s12 = "="+s1
+#    s2 = input("INT OUTPUT > ")
+    s2 = "2"
+    s21 = s2 + " -"
+    s22 = "="+s2
+    form = form.replace(s11,s21)
+    form = form.replace(s12,s22)
+    print('\n',form)
+    while num != 4:
+        num = int(num) + 1
+        s1 = s2
+        s2 = num +1
+        s11 = str(s1) + " -"
+        s12 = "="+ str(s1)
+        s21 = str(s2) + " -"
+        s22 = "="+ str(s2)  
+        form = form.replace(s11,s21)
+        form = form.replace(s12,s22)    
+        print('\n',form)     
+
+
+xv= 'XV'
+xx='XX'
+xy='XY'
+xz='XZ'
+
+#Formula metadata: 
+#0 - Static, Nonvariable (non-repeating block, No variables)
+#1 - Dynamic, Variable (repeating, contains variables)
+#2 - Static, Variable (non-repeating block, contains variables)
+#3 - Dynamic, Nonvariable (I honestly don't understand how this would happen, but
+# leaving room for contingencies, just in case.)
+
+projects = {
+"questionnaire" : {
+"choice": 
+([f"=IFS(",
+f"'Form Responses Sorted'!${xy}2=1, CONCATENATE(\"1 -\", {xz}$1,'Form Responses Sorted'!${xx}2),",
+f"OR(", 
+f"ISBLANK('Form Responses Sorted'!${xy}2),",
+f"CONCATENATE(\"1 -\",\"N/A\"))"],
+[0,1,0,1,0]),
+
+"unpriority":
+(['=CONCAT(',
+f'IF(AND(CON!{xy}2="TRUE",CON!{xx}2<>""),CONCAT("{xz}",CON!{xx}2,CHAR(10),CHAR(10)),""),',
+f')'],
+[0,1,0]),    
+    
+"data": {
+"meta": {
+"var_name": ['list','narr','rank','name'],
+"var_shrt": ['lst', 'nar', 'rnk', 'nam'], 
+"var_sub":  ['XIN', 'XX', 'XY', 'XZ']},     
+
+"Categories" : {
+'list' : ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14'],
+'narr' : [ 'F',  'W', 'AM', 'AY', 'BL', 'BY', 'CJ', 'CY', 'DK', 'EC', 'ER', 'FF', 'FU', 'GG'],
+'rank' : [ 'G',  'X', 'AN', 'AZ', 'BM', 'BZ', 'CK', 'CZ', 'DL', 'ED', 'ES', 'FG', 'FV', 'GH'],
+'name' : ['Land Use: ', 'Infrastructure: ', 'Public Works: ', 'Public Safety: ', 'Parish Facilities: ', 
+'Resilience/ Hazard Mitigation: ', 'Recreation: ', 'Cultural: ', 'Housing and Urban Development: ', 'Health and Human Services: ', 
+'Rural Development: ', 'Education: ', 'Economic Development: ', 'Mobility: ']},
+    
+"Land_Use" : {
+'list' : ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'],
+'narr' : [ 'V',  'W',  'X',  'Y',  'Z', 'AA', 'AB', 'AC', 'AD', 'AE'],
+'rank' : ['AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO'],
+'name' : [ 'I',  'J',  'K',  'L',  'M',  'N',  'O',  'P',  'Q',  'R']},
+
+"Infrastructure" : {
+'list' : ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'],
+'narr' : ['AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'JF'],
+'rank' : ['AZ', 'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'JE'],
+'name' : [ 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'GW']},
+
+"Public_Works" : {
+'list' : ['01', '02', '03', '04', '05', '06'],
+'narr' : ['BJ', 'BK', 'BL', 'BM', 'IH', 'BN'],
+'rank' : ['BO', 'BP', 'BQ', 'BR', 'IK', 'BS'],
+'name' : ['AP', 'AQ', 'AR', 'GU', 'AS', 'AT']}, 
+
+"Public_Safety" : {
+'list' : ['01', '02', '03', '04', '05', '06', '07', '08'],
+'narr' : ['BU', 'BV', 'BW', 'BX', 'BY', 'BZ', 'JI', 'JJ'],
+'rank' : ['CA', 'CB', 'CC', 'CD', 'CE', 'CF', 'JG', 'JH'],
+'name' : ['BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'GX', 'GY']},
+
+"Parish_Facilities" : { 
+'list' : ['01', '02', '03', '04', '05', '06'],
+'narr' : ['CH', 'CI', 'CJ', 'CK', 'CL', 'CM'],
+'rank' : ['CN', 'CO', 'CP', 'CQ', 'CR', 'CS'],
+'name' : ['BO', 'BP', 'BQ', 'BR', 'BS', 'BT']},
+    
+"Resilience" : {
+'list' : ['01', '02', '03', '04'],
+'narr' : ['CU', 'CV', 'CW', 'CX'],
+'rank' : ['CY', 'CZ', 'DA', 'DB'],
+'name' : ['CB', 'CC', 'CD', 'CE']},
+
+"Recreation" : {
+'list' : ['01', '02', '03', '04', '05', '06', '07', '08'],
+'narr' : ['DD', 'DE', 'DF', 'DG', 'DH', 'DI', 'IL', 'DJ'],         
+'rank' : ['DK', 'DL', 'DM', 'DN', 'DO', 'DP', 'IJ', 'DQ'],
+'name' : ['CM', 'CN', 'CO', 'CP', 'CQ', 'CR', 'CS', 'CT']},
+
+"Cultural" : {
+'list' : ['01', '02', '03', '04', '05'],
+'narr' : ['DS', 'DT', 'DU', 'DV', 'DW'],
+'rank' : ['DX', 'DY', 'DZ', 'EA', 'EB'],
+'name' : ['DB', 'DC', 'DD', 'DE', 'DF']},    
+
+"HUD" : {
+'list' : ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11'],
+"narr" : ["ED", "EE", "EF", "EG", "EH", "EI", "EJ", "EK", "EL", "EM", "EN"],
+"rank" : ["EO", "EP", "EQ", "ER", "ES", "ET", "EU", "EV", "EW", "EX", "EY"],
+"name" : ["DN", "DO", "DP", "DQ", "DR", "DS", "DT", "DU", "DV", "DW", "DX"]},
+
+"HHS" : {
+'list' : ['01', '02', '03', '04', '05', '06', '07', '08'],
+'narr' : ['EZ', 'FA', 'FB', 'FC', 'FD', 'FE', 'FF', 'FG'],
+'rank' : ['FH', 'FI', 'FJ', 'FK', 'FL', 'FM', 'FN', 'FO'],
+'name' : ['EF', 'EG', 'EH', 'EI', 'EJ', 'EK', 'EL', 'EM']}, 
+
+"Rural_Development" : {
+'list' : ['01', '02', '03', '04', '05', '06', '07'],
+'narr' : ['FQ', 'FR', 'FS', 'FT', 'FU', 'FV', 'FW'],
+'rank' : ['FX', 'FY', 'FZ', 'GA', 'GB', 'GC', 'GD'],
+'name' : ['EU', 'EV', 'EW', 'EX', 'EY', 'EZ', 'FA']},     
+
+"Education" : {
+'list' : ['01', '02', '03', '04', '05', '06', '07', '08'],
+'narr' : ['GF', 'GG', 'GH', 'GI', 'GJ', 'GK', 'GL', 'GM'],
+'rank' : ['GN', 'GO', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU'],
+'name' : ['FI', 'FJ', 'FK', 'Fl', 'FM', 'FN', 'FO', 'FP']},  
+
+"Economic_Development": {
+'list' : ['01', '02', '03', '04'],
+'narr' : ['GW', 'GX', 'GY', 'HA'],
+'rank' : ['HB', 'HC', 'HD', 'HF'],
+'name' : ['FX', 'FY', 'FZ', 'GB']},   
+
+"Mobility":{
+'list' : ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+'narr' : ['HH', 'HI', 'HJ', 'HK', 'HL', 'HM', 'HN', 'HO', 'HP', 'HQ', 'HR', 'HS'],
+'rank' : ['HT', 'HU', 'HV', 'HW', 'HX', 'HY', 'HZ', 'IA', 'IB', 'IC', 'ID', 'IE'],
+'name' : ['GJ', 'GK', 'GL', 'GM', 'GN', 'GO', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU']}}},              
+
+"matrix" : {
+"strat_accept":
+([""],[""]),
+
+"strat_fact":
+([""],[""]),
+
+"strat_cat":
+([""],[""]),
+
+"data":{
+"meta":[""]
+}}}
+
+def Glue(inp_str, sub, var, update_compile, gluelist):  
+    out = inp_str.replace(sub, var)
+    gluelist.append(out)
+    update_compile[sub] = gluelist
+#    print(f"{sub} {var} {out}")
+    
+    return(out)
+ 
+def Piecer(Combinator):
+    for formula_piece in Combinator(projects, block, project_meta, project_data).values():  
+        build_list = []
+        for part in formula_piece:
+            build_list.append(part)
+    output = build_list
+    return(output)
+
+#categories = [Land_Use, Infrastructure, Public_Works,  Public_Safety, Parish_Facilities, Resilience,
+#              Recreation, Cultural, HUD, HHS, Rural_Development, Education, Economic_Development, Mobility, Categories]
+
+#category = ["Land_Use", "Infrastructure", "Public_Works",  "Public_Safety", "Parish_Facilities", "Resilience",
+#              "Recreation", "Cultural", "HUD", "HHS", "Rural_Development", "Education", "Economic_Development", "Mobility", "Categories"]
+
+def Combinator(projects, block, project_meta, project_data):
+    formula_blocklist = {}; num = 0; formula_output = {}
+    variables = {}; output = ''; block_string = '';  block_data={}; templist = []
+    sublist = []
+
+##Determine and define a number of variables for a given project
+    for block_var, block_val in zip(projects[select]["data"]["meta"]["var_sub"], projects[select]["data"][select3].values()):
+        variables[block_var] = block_val
+        
+#    print(variables)
+#
+#Determine and define a number of formula blocks for a given project formula
+    block_len = len(projects[select][select2][1])
+    block_select = block_len
+    
+    var_len = len(projects[select]["data"]["meta"]["var_sub"])
+#    print(var_len)
+    var_select = 0
+
+#    print(block_data)
+ 
+#Iterate through each defined variable, replace substitutes, add to list for recompilation
+    for form_block, form_type in zip(projects[select][select2][0], projects[select][select2][1]):
+        templist = []; templist1 = []
+        block_data[form_block] = ''   
+
+        
+        if form_type == 0:
+#            print("Type 0: ", form_block)
+            templist.append(form_block)
+            block_data[form_block] = templist
+            
+        
+        elif form_type == 1: 
+#            print("Type 1: ", form_block)
+           
+            for sub in variables: 
+                for var in variables[sub]:
+                    templist1.append(form_block)
+#                print(templist1)
+                
+            for sub in variables:
+                var_ind = projects[select]["data"]["meta"]["var_sub"].index(sub)
+                gluelist = []
+                                
+                for var in variables[sub]:
+                    sub_ind = variables[sub].index(var)
+                    temp = Glue(templist1[sub_ind], sub, var, update_compile, gluelist)
+                    templist1[sub_ind] = temp
+                    
+            block_data[form_block] = update_compile[sub]
+            
+    return(block_data)
+
+#------------------------------------------------------------------------------
+
+#inp = input("Do you need to script? > ")
+project_name=[]; project_info=[]; block=[]; data_name=[]; project_meta=[]; block_data={};
+update_compile = {}
+num = 0            
+if inp == "3":
+    print("\nPlease Select Project\n")
+    for names in projects.keys():
+        num += 1
+        project_name.append(names)
+        print(num,") ",names)     
+    num=0
+    inp = input("\nPlease Select Project Name > ")
+    select = project_name[int(inp)-1]
+    
+    for item in projects[select]:
+        num += 1
+        project_info.append(item)
+        print(num,") ",item)  
+    num=0
+    
+    inp = input("\nPlease Select Block to Execute > ")
+    select2 = project_info[int(inp)-1]
+    
+    for item in projects[select][select2]:
+#        num+= 1
+#        print(num,") ",item)
+        block.append(item)
+    num=0
+    
+
+    for item in projects[select]["data"]:
+        if item == "meta":
+            continue
+        num += 1
+        data_name.append(item)
+        print(num,") ",item)
+    num=0
+    print("\nPlease Select Category Data\n")
+    inp = input("Category Data > ")
+    
+    select3 = data_name[int(inp)-1]
+    project_data = projects[select]["data"][select3] 
+    project_meta = projects[select]["data"]["meta"]
+    
+    output = []; final = [] 
+    out = Combinator(projects, block, project_meta, project_data)
+   
+    for items in out.values():
+        output.append(items)
+        
+    for items in output:
+        for parts in items:
+            final.append(parts)
+    
+#    for items in final:
+#        print(items)
+    
+    print(''.join(final))
+    
+#    
+#    for form_block, block_type in zip(projects[select][select2][0], projects[select][select2][1]):
+#        output = Combinator(projects, block, project_meta, project_data, form_block, block_type)
+#        block_data[form_block] = output      
+#    
+#    
+#    print(block_data)
+#    
+#    for change_string in form_block.values():
+#        for var in variables[sub]:  
+#            temp = form_block.replace(sub,var)
+#            templist.append(temp)
+
+    
+    
+#    print("\nProject Name: ", project_name)
+#    print("\nProject Info: ",project_info)
+#    print("\nBlock", block)
+#    print("\nProject Data: ", project_data)
+#    print("\nProject MetaData: ", project_meta)
+##    
+    
+#    
+#    print("\nPlease select from the following:")
+#    num = 0 
+#    for name in category: 
+#        num += 1
+#        print(num,": ",name)
+#    inp = input("\n\n> ")
+#    data = categories[int(inp)-1]
+#    
+#    form = Combinator(choice, block, data)
+#    print(form)
+#
+#inp = input("Need Number Replacement? > ")
+#if inp == "y":
+#    s1 = "1"
+#    num = s1
+#    s11 = s1 + " -"
+#    s12 = "="+s1
+#    s2 = "2"
+#    s21 = s2 + " -"
+#    s22 = "="+s2
+#    form = form.replace(s11,s21)
+#    form = form.replace(s12,s22)
+#    print('\n',form)
+#    while num != 4:
+#        num = int(num) + 1
+#        s1 = s2;
+#        s2 = num +1
+#        s11 = str(s1) + " -"
+#        s12 = "="+ str(s1)
+#        s21 = str(s2) + " -"
+#        s22 = "="+ str(s2)  
+#        form = form.replace(s11,s21)
+#        form = form.replace(s12,s22)    
+#        print('\n',form)  
+
